@@ -24,27 +24,31 @@ $youtube = new \YouTube\YouTubeDownloader();
 try {
     $links = $youtube->getDownloadLinks($url);
 
-    if ($allFormats = $links->getAllFormats()) {
+    send_json([
+        'links' => [$links->getAllFormats()]
+    ]);
 
-        foreach ($allFormats as $format){
-            if ($format->qualityLabel == '720p' && $format->audioQuality != null){
-                $url = $format->url;
-                break;
-            }
-        }
-
-    } else {
-        echo 'No links found';
-    }
-
-
-    if ($url) {
-        send_json([
-            'links' => [$url]
-        ]);
-    } else {
-        send_json(['error' => 'No links found']);
-    }
+//    if ($allFormats = $links->getAllFormats()) {
+//
+//        foreach ($allFormats as $format){
+//            if ($format->qualityLabel == '720p' && $format->audioQuality != null){
+//                $url = $format->url;
+//                break;
+//            }
+//        }
+//
+//    } else {
+//        echo 'No links found';
+//    }
+//
+//
+//    if ($url) {
+//        send_json([
+//            'links' => [$url]
+//        ]);
+//    } else {
+//        send_json(['error' => 'No links found']);
+//    }
 
 } catch (\YouTube\Exception\YouTubeException $e) {
 

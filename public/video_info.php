@@ -18,6 +18,8 @@ if (!$url) {
 }
 
 $youtube = new \YouTube\YouTubeDownloader();
+//$youtube->getBrowser()->setCookieFile('./cookies.txt');
+//$youtube->getBrowser()->setUserAgent('Mozilla/6.0 (Windows NT 6.4; WOW64; rv:49.0) Gecko/20100101 Firefox/49.0');
 
 try {
     $links = $youtube->getDownloadLinks($url);

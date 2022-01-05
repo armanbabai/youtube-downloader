@@ -23,31 +23,29 @@ $youtube->getBrowser()->setUserAgent('Mozilla/5.0 (Windows NT 6.3; WOW64; rv:49.
 try {
     $links = $youtube->getDownloadLinks($url);
 
-    send_json([
-        'links' => [$links->getAllFormats()]
-    ]);
 
-//    if ($allFormats = $links->getAllFormats()) {
-//
-//        foreach ($allFormats as $format){
-//            if ($format->qualityLabel == '720p' && $format->audioQuality != null){
-//                $url = $format->url;
-//                break;
-//            }
-//        }
-//
-//    } else {
-//        echo 'No links found';
-//    }
-//
-//
-//    if ($url) {
-//        send_json([
-//            'links' => [$url]
-//        ]);
-//    } else {
-//        send_json(['error' => 'No links found']);
-//    }
+
+    if ($allFormats = $links->getAllFormats()) {
+
+        foreach ($allFormats as $format){
+            if ($format->qualityLabel == '720p' && $format->audioQuality != null){
+                $url = $format->url;
+                break;
+            }
+        }
+
+    } else {
+        echo 'No links found';
+    }
+
+
+    if ($url) {
+        send_json([
+            'links' => [$url]
+        ]);
+    } else {
+        send_json(['error' => 'No links found']);
+    }
 
 } catch (\YouTube\Exception\YouTubeException $e) {
 

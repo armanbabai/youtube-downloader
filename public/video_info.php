@@ -24,13 +24,23 @@ $youtube = new \YouTube\YouTubeDownloader();
 try {
     $links = $youtube->getDownloadLinks($url);
 
+    if ($allFormats = $links->getAllFormats()) {
+
+        foreach ($allFormats as $format){
+            if ($format->qualityLabel == '720p' && $format->audioQuality != null){
+                $url = $format->url;
+                break;
+            }
+        }
+
+    } else {
+        echo 'No links found';
+    }
 
 
-    $best = $links->getAllFormats();
-
-    if ($best) {
+    if ($url) {
         send_json([
-            'links' => [$best]
+            'links' => [$url]
         ]);
     } else {
         send_json(['error' => 'No links found']);

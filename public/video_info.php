@@ -24,7 +24,7 @@ try {
     $links = $youtube->getDownloadLinks($url);
 
     send_json([
-        'links' => [$links]
+        'links' => [$links->getAllFormats()]
     ]);
 
 //    if ($allFormats = $links->getAllFormats()) {
